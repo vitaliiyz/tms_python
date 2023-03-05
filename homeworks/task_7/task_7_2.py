@@ -1,3 +1,6 @@
+from car_exceptions import NegativeSpeedError, SpeedingError
+
+
 class Car:
     def __init__(self, brand, model, year, speed=0):
         self._brand = brand
@@ -14,9 +17,13 @@ class Car:
         self._speed = value
 
     def acceleration(self):
+        if self.speed >= 60:
+            raise SpeedingError("Maximum allowed driving speed is 60 km/h")
         self.speed += 5
 
     def deceleration(self):
+        if self.speed < 5:
+            raise NegativeSpeedError("Car speed cannot be less than 0")
         self.speed -= 5
 
     def stop(self):
@@ -40,4 +47,32 @@ car.show_speed()
 car.turn_around()
 car.show_speed()
 car.stop()
+car.show_speed()
+
+try:
+    car.deceleration()
+except NegativeSpeedError as e:
+    print(e)
+
+car.show_speed()
+
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.acceleration()
+car.show_speed()
+
+try:
+    car.acceleration()
+except SpeedingError as e:
+    print(e)
+
 car.show_speed()
